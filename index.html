@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Lumio REF — Electrical Quick Reference</title>
   <meta name="description" content="CEC quick-reference electrical calculations: power, current, cable sizing, voltage drop, fuses, disconnects, selectivity.">
-  <meta name="theme-color" content="#14181d">
+  <meta name="theme-color" content="#003366">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="icons/icon-192.png">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -19,8 +19,9 @@
   <div class="shell">
     <header class="app-header">
       <div class="brand">
-        <svg class="brand-bolt" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 5.5 13.5h4.6L9.6 22l7.9-11.5h-4.7L13 2z"/></svg>
-        <h1>Lumio&nbsp;<span>REF</span></h1>
+        <img class="brand-mark mark-light" src="icons/mark-navy.png" alt="">
+        <img class="brand-mark mark-dark" src="icons/mark-ice.png" alt="">
+        <h1>LUMIO&nbsp;<span>REF</span></h1>
       </div>
       <button id="themeToggle" class="icon-btn" title="Theme" aria-label="Toggle theme">◐</button>
     </header>
@@ -29,8 +30,18 @@
       <div class="card"><p class="muted">Loading data tables…</p></div>
     </main>
     <footer class="app-footer">
+      <svg class="motif" viewBox="0 0 640 58" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="0" y1="28" x2="612" y2="28"/>
+        <circle cx="110" cy="28" r="9"/><circle cx="124" cy="28" r="9"/>
+        <line x1="230" y1="28" x2="230" y2="14"/><rect x="224" y="4" width="12" height="10"/>
+        <line x1="360" y1="28" x2="360" y2="14"/><rect x="354" y="4" width="12" height="10"/>
+        <line x1="300" y1="28" x2="300" y2="43"/><circle cx="300" cy="47" r="4"/>
+        <line x1="480" y1="28" x2="480" y2="40"/><line x1="470" y1="40" x2="490" y2="40"/><line x1="474" y1="45" x2="486" y2="45"/><line x1="478" y1="50" x2="482" y2="50"/>
+        <circle class="live" cx="619" cy="28" r="5" stroke="none"/>
+      </svg>
+      <p class="tagline">From Design to Commissioning — Precision Engineering for Industry.</p>
       <p><strong>Reference only.</strong> Results are quick-reference estimates based on CEC/OESC 2024 table data bundled with this app. Final design values must be verified against the current code by a licensed professional engineer.</p>
-      <p class="muted">Lumio Energy Inc. · Built for field use · Works offline</p>
+      <p class="muted">Lumio Energy is a trade name of Lumioenergy Solutions Inc. · Certificate of Authorization — PEO · Toronto, Canada · Works offline</p>
     </footer>
   </div>
   <script type="module" src="js/app.js"></script>

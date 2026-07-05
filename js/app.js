@@ -36,7 +36,7 @@ const mql = window.matchMedia('(prefers-color-scheme: dark)');
 function applyTheme() {
   const mode = settings.theme === 'auto' ? (mql.matches ? 'dark' : 'light') : settings.theme;
   document.documentElement.dataset.theme = mode;
-  document.querySelector('meta[name="theme-color"]').content = mode === 'dark' ? '#14181d' : '#f4f5f7';
+  document.querySelector('meta[name="theme-color"]').content = mode === 'dark' ? '#00234a' : '#fafdff';
 }
 mql.addEventListener('change', applyTheme);
 applyTheme();

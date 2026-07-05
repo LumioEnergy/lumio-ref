@@ -1,6 +1,6 @@
 // Offline-first service worker: precache the entire app, serve from cache,
 // update cache in the background. Bump VERSION when shipping changes.
-const VERSION = 'lumioref-v1';
+const VERSION = 'lumioref-v2';
 
 const ASSETS = [
   './',
@@ -33,6 +33,10 @@ const ASSETS = [
   './data/cec-2024/fuse.json',
   './data/cec-2024/disconnect.json',
   './data/cec-2024/selectivity.json',
+  './fonts/space-grotesk-var-latin.woff2',
+  './fonts/montserrat-var-latin.woff2',
+  './icons/mark-navy.png',
+  './icons/mark-ice.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-maskable-512.png',
