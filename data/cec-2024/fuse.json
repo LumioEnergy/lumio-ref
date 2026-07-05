@@ -1,0 +1,31 @@
+{
+  "_verification": "Verify multipliers against CEC Rules 28-200 and 26-250/26-254 and standard ratings against Rule 14-104 before field use.",
+  "standardRatings": {
+    "ref": "CEC Rule 14-104 (standard OCPD ratings)",
+    "amps": [1, 2, 3, 4, 5, 6, 10, 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 110, 125, 150, 175, 200, 225, 250, 300, 350, 400, 450, 500, 600, 700, 800, 1000, 1200, 1600, 2000, 2500, 3000, 4000, 5000, 6000]
+  },
+  "classes": [
+    { "class": "J",   "range": "1–600 A, 600 V", "interrupting": "200 kA", "timeDelay": "Available TD and fast-acting", "application": "Compact, rejection-style. Preferred for UL 508A panels, feeders, branch circuits, motor circuits. High current limitation." },
+    { "class": "CC",  "range": "0.1–30 A, 600 V", "interrupting": "200 kA", "timeDelay": "TD versions for motors (e.g. LP-CC)", "application": "Small motors, control transformers, control circuits. Rejection ferrule. Very compact." },
+    { "class": "RK1", "range": "0.1–600 A, 250/600 V", "interrupting": "200 kA", "timeDelay": "TD and fast-acting", "application": "High current limitation. Retrofit of Class H clips. Motor and feeder protection where let-through must be low." },
+    { "class": "RK5", "range": "0.1–600 A, 250/600 V", "interrupting": "200 kA", "timeDelay": "Usually TD (e.g. FRN-R/FRS-R)", "application": "General purpose, motor circuits. Less current-limiting than RK1; economical. Common in existing installations." },
+    { "class": "T",   "range": "1–1200 A, 300/600 V", "interrupting": "200 kA", "timeDelay": "Fast-acting", "application": "Very compact, fast. Meter stacks, feeders, semiconductor-adjacent duty. Not for high-inrush motor loads without oversizing." },
+    { "class": "L",   "range": "601–6000 A, 600 V", "interrupting": "200 kA", "timeDelay": "TD versions available", "application": "Large services and feeders above 600 A. Bolt-in blade." }
+  ],
+  "motorBranch": {
+    "ref": "CEC Rule 28-200",
+    "note": "Maximum fuse rating as % of motor FLC. Where the calculated value does not correspond to a standard rating, the app selects the next lower standard rating; the elevated limit applies only where needed for starting.",
+    "timeDelay":    { "normalPct": 175, "startingReliefPct": 225 },
+    "nonTimeDelay": { "normalPct": 300, "startingReliefPct": 400 }
+  },
+  "transformer": {
+    "ref": "CEC Rules 26-250 / 26-254 (dry-type, 750 V or less)",
+    "note": "Primary-only protection: 125% of rated primary current (167% if primary current < 9 A; 300% if < 2 A), next higher standard rating permitted where 125% does not correspond to a standard rating. With secondary protection at 125%: primary may rise to 300%.",
+    "primaryOnly": [
+      { "minA": 9, "pct": 125, "nextHigherAllowed": true },
+      { "minA": 2, "pct": 167, "nextHigherAllowed": false },
+      { "minA": 0, "pct": 300, "nextHigherAllowed": false }
+    ],
+    "withSecondary": { "primaryMaxPct": 300, "secondaryPct": 125, "secondaryNextHigherAllowed": true }
+  }
+}

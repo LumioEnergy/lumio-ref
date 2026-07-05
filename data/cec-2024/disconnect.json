@@ -1,0 +1,15 @@
+{
+  "_verification": "Verify against CEC Rule 28-604 and manufacturer switch ratings before field use.",
+  "ref": "CEC Rule 28-604",
+  "frames": [30, 60, 100, 200, 400, 600, 800, 1200],
+  "motor": {
+    "minPctFla": 115,
+    "hpRatedRequired": true,
+    "note": "Motor disconnecting means: ampere rating at least 115% of motor FLC, and must be horsepower-rated (or a suitable general-use switch per 28-602 exceptions for small motors)."
+  },
+  "general": {
+    "minPct": 100,
+    "note": "Non-motor loads: switch rated at least the continuous load current; apply 80% continuous-loading rules of the feeder calculation upstream, not in the switch selection itself."
+  },
+  "fusibleNote": "Choose fusible where the disconnect also provides branch/feeder OCPD (fuse class per fuse module); non-fusible where protection exists upstream and only isolation is required."
+}

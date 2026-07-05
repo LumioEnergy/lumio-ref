@@ -1,0 +1,33 @@
+{
+  "_verification": "Transcribed values — verify against CEC Tables 5A and 5C before field use.",
+  "ambient": {
+    "ref": "CEC Table 5A",
+    "baseAmbientC": 30,
+    "note": "Correction factors for ambient temperatures other than 30 C, per insulation temperature rating column.",
+    "rows": [
+      { "minC": -100, "maxC": 25, "60C": 1.08, "75C": 1.05, "90C": 1.04 },
+      { "minC": 26,  "maxC": 30, "60C": 1.00, "75C": 1.00, "90C": 1.00 },
+      { "minC": 31,  "maxC": 35, "60C": 0.91, "75C": 0.94, "90C": 0.96 },
+      { "minC": 36,  "maxC": 40, "60C": 0.82, "75C": 0.88, "90C": 0.91 },
+      { "minC": 41,  "maxC": 45, "60C": 0.71, "75C": 0.82, "90C": 0.87 },
+      { "minC": 46,  "maxC": 50, "60C": 0.58, "75C": 0.75, "90C": 0.82 },
+      { "minC": 51,  "maxC": 55, "60C": 0.41, "75C": 0.67, "90C": 0.76 },
+      { "minC": 56,  "maxC": 60, "60C": 0,    "75C": 0.58, "90C": 0.71 },
+      { "minC": 61,  "maxC": 65, "60C": 0,    "75C": 0.47, "90C": 0.65 },
+      { "minC": 66,  "maxC": 70, "60C": 0,    "75C": 0.33, "90C": 0.58 },
+      { "minC": 71,  "maxC": 75, "60C": 0,    "75C": 0,    "90C": 0.50 },
+      { "minC": 76,  "maxC": 80, "60C": 0,    "75C": 0,    "90C": 0.41 }
+    ]
+  },
+  "conductorCount": {
+    "ref": "CEC Table 5C",
+    "note": "Ampacity correction where more than 3 current-carrying conductors are in a raceway or cable.",
+    "rows": [
+      { "min": 1,  "max": 3,   "factor": 1.00 },
+      { "min": 4,  "max": 6,   "factor": 0.80 },
+      { "min": 7,  "max": 24,  "factor": 0.70 },
+      { "min": 25, "max": 42,  "factor": 0.60 },
+      { "min": 43, "max": 999, "factor": 0.50 }
+    ]
+  }
+}

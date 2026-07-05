@@ -1,0 +1,26 @@
+{
+  "_verification": "Typical published amp-ratio values in the style of the Bussmann Selectivity Ratio Guide (time-delay upstream family). Ratios differ by manufacturer and fuse series — ALWAYS confirm with the manufacturer's current selectivity guide or TCC overlay before relying on coordination.",
+  "ref": "Manufacturer selectivity ratio tables (e.g. Bussmann SPD / Mersen coordination guides)",
+  "note": "Ratio = upstream rating / downstream rating. 'selective' means the published minimum ratio is met for fuses of the listed classes; anything outside the table returns 'verify with manufacturer TCC'.",
+  "ratios": [
+    { "upstream": "L",   "downstream": "L",   "minRatio": 2.0 },
+    { "upstream": "L",   "downstream": "J",   "minRatio": 2.0 },
+    { "upstream": "L",   "downstream": "RK1", "minRatio": 2.0 },
+    { "upstream": "L",   "downstream": "RK5", "minRatio": 4.0 },
+    { "upstream": "J",   "downstream": "J",   "minRatio": 2.0 },
+    { "upstream": "J",   "downstream": "CC",  "minRatio": 2.0 },
+    { "upstream": "J",   "downstream": "RK1", "minRatio": 2.0 },
+    { "upstream": "J",   "downstream": "RK5", "minRatio": 8.0 },
+    { "upstream": "J",   "downstream": "T",   "minRatio": 2.0 },
+    { "upstream": "RK1", "downstream": "RK1", "minRatio": 2.0 },
+    { "upstream": "RK1", "downstream": "CC",  "minRatio": 2.0 },
+    { "upstream": "RK1", "downstream": "J",   "minRatio": 2.0 },
+    { "upstream": "RK1", "downstream": "RK5", "minRatio": 8.0 },
+    { "upstream": "RK5", "downstream": "RK5", "minRatio": 2.0 },
+    { "upstream": "RK5", "downstream": "RK1", "minRatio": 1.5 },
+    { "upstream": "RK5", "downstream": "CC",  "minRatio": 2.0 },
+    { "upstream": "RK5", "downstream": "J",   "minRatio": 1.5 },
+    { "upstream": "T",   "downstream": "T",   "minRatio": 3.0 },
+    { "upstream": "T",   "downstream": "J",   "minRatio": 2.0 }
+  ]
+}

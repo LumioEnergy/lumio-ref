@@ -1,0 +1,11 @@
+{
+  "name": "lumio-ref",
+  "version": "1.0.0",
+  "description": "Lumio Energy electrical quick-reference PWA (CEC/OESC 2024)",
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"tests/*.test.js\"",
+    "serve": "python -m http.server 8080"
+  },
+  "private": true
+}

@@ -1,0 +1,76 @@
+{
+  "_verification": "Transcribed values — verify against CEC Tables 2 and 4 before field use. Free-air Tables 1/3 not yet loaded; add a 'freeAir' block using the same row schema to enable.",
+  "copper": {
+    "ref": "CEC Table 2 (not more than 3 copper conductors in raceway or cable)",
+    "sizes": [
+      { "size": "14 AWG",    "cmil": 4110,    "60C": 15,  "75C": 20,  "90C": 25 },
+      { "size": "12 AWG",    "cmil": 6530,    "60C": 20,  "75C": 25,  "90C": 30 },
+      { "size": "10 AWG",    "cmil": 10380,   "60C": 30,  "75C": 35,  "90C": 40 },
+      { "size": "8 AWG",     "cmil": 16510,   "60C": 40,  "75C": 50,  "90C": 55 },
+      { "size": "6 AWG",     "cmil": 26240,   "60C": 55,  "75C": 65,  "90C": 75 },
+      { "size": "4 AWG",     "cmil": 41740,   "60C": 70,  "75C": 85,  "90C": 95 },
+      { "size": "3 AWG",     "cmil": 52620,   "60C": 85,  "75C": 100, "90C": 110 },
+      { "size": "2 AWG",     "cmil": 66360,   "60C": 95,  "75C": 115, "90C": 130 },
+      { "size": "1 AWG",     "cmil": 83690,   "60C": 110, "75C": 130, "90C": 145 },
+      { "size": "1/0 AWG",   "cmil": 105600,  "60C": 125, "75C": 150, "90C": 170 },
+      { "size": "2/0 AWG",   "cmil": 133100,  "60C": 145, "75C": 175, "90C": 195 },
+      { "size": "3/0 AWG",   "cmil": 167800,  "60C": 165, "75C": 200, "90C": 225 },
+      { "size": "4/0 AWG",   "cmil": 211600,  "60C": 195, "75C": 230, "90C": 260 },
+      { "size": "250 kcmil", "cmil": 250000,  "60C": 215, "75C": 255, "90C": 290 },
+      { "size": "300 kcmil", "cmil": 300000,  "60C": 240, "75C": 285, "90C": 320 },
+      { "size": "350 kcmil", "cmil": 350000,  "60C": 260, "75C": 310, "90C": 350 },
+      { "size": "400 kcmil", "cmil": 400000,  "60C": 280, "75C": 335, "90C": 380 },
+      { "size": "500 kcmil", "cmil": 500000,  "60C": 320, "75C": 380, "90C": 430 },
+      { "size": "600 kcmil", "cmil": 600000,  "60C": 350, "75C": 420, "90C": 475 },
+      { "size": "750 kcmil", "cmil": 750000,  "60C": 400, "75C": 475, "90C": 535 },
+      { "size": "1000 kcmil","cmil": 1000000, "60C": 455, "75C": 545, "90C": 615 }
+    ]
+  },
+  "aluminum": {
+    "ref": "CEC Table 4 (not more than 3 aluminum conductors in raceway or cable)",
+    "sizes": [
+      { "size": "12 AWG",    "cmil": 6530,    "60C": 15,  "75C": 20,  "90C": 25 },
+      { "size": "10 AWG",    "cmil": 10380,   "60C": 25,  "75C": 30,  "90C": 35 },
+      { "size": "8 AWG",     "cmil": 16510,   "60C": 35,  "75C": 40,  "90C": 45 },
+      { "size": "6 AWG",     "cmil": 26240,   "60C": 40,  "75C": 50,  "90C": 60 },
+      { "size": "4 AWG",     "cmil": 41740,   "60C": 55,  "75C": 65,  "90C": 75 },
+      { "size": "3 AWG",     "cmil": 52620,   "60C": 65,  "75C": 75,  "90C": 85 },
+      { "size": "2 AWG",     "cmil": 66360,   "60C": 75,  "75C": 90,  "90C": 100 },
+      { "size": "1 AWG",     "cmil": 83690,   "60C": 85,  "75C": 100, "90C": 115 },
+      { "size": "1/0 AWG",   "cmil": 105600,  "60C": 100, "75C": 120, "90C": 135 },
+      { "size": "2/0 AWG",   "cmil": 133100,  "60C": 115, "75C": 135, "90C": 150 },
+      { "size": "3/0 AWG",   "cmil": 167800,  "60C": 130, "75C": 155, "90C": 175 },
+      { "size": "4/0 AWG",   "cmil": 211600,  "60C": 150, "75C": 180, "90C": 205 },
+      { "size": "250 kcmil", "cmil": 250000,  "60C": 170, "75C": 205, "90C": 230 },
+      { "size": "300 kcmil", "cmil": 300000,  "60C": 195, "75C": 230, "90C": 260 },
+      { "size": "350 kcmil", "cmil": 350000,  "60C": 210, "75C": 250, "90C": 280 },
+      { "size": "400 kcmil", "cmil": 400000,  "60C": 225, "75C": 270, "90C": 305 },
+      { "size": "500 kcmil", "cmil": 500000,  "60C": 260, "75C": 310, "90C": 350 },
+      { "size": "600 kcmil", "cmil": 600000,  "60C": 285, "75C": 340, "90C": 385 },
+      { "size": "750 kcmil", "cmil": 750000,  "60C": 320, "75C": 385, "90C": 435 },
+      { "size": "1000 kcmil","cmil": 1000000, "60C": 375, "75C": 445, "90C": 500 }
+    ]
+  },
+  "insulationTypes": [
+    { "type": "TECK90",      "tempC": 90, "materials": ["copper", "aluminum"], "note": "Armoured cable; wet/dry, direct burial per marking" },
+    { "type": "ACWU90",      "tempC": 90, "materials": ["aluminum"],           "note": "Aluminum armoured, wet locations, direct burial" },
+    { "type": "RW90 (XLPE)", "tempC": 90, "materials": ["copper", "aluminum"], "note": "Building wire, wet/dry" },
+    { "type": "R90",         "tempC": 90, "materials": ["copper", "aluminum"], "note": "Dry locations" },
+    { "type": "T90 Nylon",   "tempC": 90, "materials": ["copper"],             "note": "Dry locations; dual-rated with TWN75 for wet" },
+    { "type": "THHN/THWN-2", "tempC": 90, "materials": ["copper", "aluminum"], "note": "US type; THWN-2 wet-rated 90C" },
+    { "type": "TWN75",       "tempC": 75, "materials": ["copper"],             "note": "Wet locations 75C" },
+    { "type": "TW75/TWU75",  "tempC": 75, "materials": ["copper", "aluminum"], "note": "Wet/underground 75C" },
+    { "type": "TW",          "tempC": 60, "materials": ["copper", "aluminum"], "note": "Wet locations 60C" }
+  ],
+  "termination": {
+    "ref": "CEC Rule 4-006",
+    "defaultTempC": 75,
+    "options": [60, 75, 90],
+    "note": "Ampacity must be based on the lowest temperature rating of any termination or equipment marking, regardless of conductor insulation rating. 75C is the common default for unmarked equipment."
+  },
+  "motorConductor": {
+    "ref": "CEC Rule 28-106",
+    "multiplier": 1.25,
+    "note": "Motor branch-circuit conductors: minimum 125% of motor full-load current."
+  }
+}

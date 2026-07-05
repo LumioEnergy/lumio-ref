@@ -1,0 +1,8 @@
+{
+  "id": "cec-2024",
+  "code": "CEC",
+  "edition": "CEC 2024 / OESC 2024",
+  "standardsRef": "CSA C22.1-24; UL 508A / CSA C22.2 No. 286 for industrial control panels",
+  "units": "metric",
+  "_verification": "All table values in this dataset were transcribed and MUST be spot-checked against the printed code before field use. Edit these JSON files to correct or update values — calculation code reads everything from here."
+}
