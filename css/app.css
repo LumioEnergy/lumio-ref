@@ -157,6 +157,7 @@ details.steps { margin-top: 12px; border: 1px solid var(--border); border-radius
 details.steps summary { padding: 10px 12px; cursor: pointer; font-size: 0.88rem; color: var(--muted); min-height: 44px; display: flex; align-items: center; }
 details.steps ol { margin: 0; padding: 0 16px 12px 32px; font-size: 0.86rem; }
 details.steps li { margin-bottom: 4px; }
+.fold-body { padding: 0 12px 12px; overflow-x: auto; }
 
 .btn {
   padding: 12px 18px; min-height: 48px; border-radius: 10px; border: 1px solid var(--border);

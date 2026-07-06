@@ -8,10 +8,11 @@ import * as vdrop from './ui/vdrop.js';
 import * as fuse from './ui/fuse.js';
 import * as disconnect from './ui/disconnect.js';
 import * as selectivity from './ui/selectivity.js';
+import * as tables from './ui/tables.js';
 import * as settingsPage from './ui/settings.js';
 import { h, renderError } from './ui/common.js';
 
-const MODULES = [power, current, cable, vdrop, fuse, disconnect, selectivity, settingsPage];
+const MODULES = [power, current, cable, vdrop, fuse, disconnect, selectivity, tables, settingsPage];
 
 // ---- Settings (persisted locally) ----
 const SETTINGS_KEY = 'lumioref-settings';

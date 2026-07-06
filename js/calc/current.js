@@ -66,6 +66,31 @@ export function powerToAmps({ kind, value, voltage, phase, pf = 0.85, eff = 0.9,
   return { calculated, tableFlc: table ? table.flc : null, governing: table ? table.flc : calculated, ref, steps, warnings };
 }
 
+/**
+ * Reverse motor lookup: closest CEC Table 44/45 motor for a given current.
+ * Returns null when the voltage/phase has no table column or the current is
+ * outside the table's range (below smallest FLC −15% / above largest +15%).
+ */
+export function nearestMotorFromAmps({ amps, voltage, phase, flcData }) {
+  const table = phase === 3 ? flcData.threePhase : flcData.singlePhase;
+  const col = table.voltageMap[String(voltage)];
+  if (!col) return null;
+  let best = null;
+  let minFlc = Infinity;
+  let maxFlc = 0;
+  for (const r of table.hp) {
+    const f = r.flc[col];
+    if (f === undefined) continue;
+    minFlc = Math.min(minFlc, f);
+    maxFlc = Math.max(maxFlc, f);
+    if (!best || Math.abs(f - amps) < Math.abs(best.flc - amps)) {
+      best = { hp: r.hp, label: r.label ?? String(r.hp), flc: f, ref: table.ref };
+    }
+  }
+  if (!best || amps > maxFlc * 1.15 || amps < minFlc * 0.85) return null;
+  return best;
+}
+
 export function ampsToPower({ amps, voltage, phase, pf = 0.85, eff = 0.9 }) {
   assertPos('Current', amps);
   assertPos('Voltage', voltage);

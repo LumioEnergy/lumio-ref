@@ -105,6 +105,21 @@ export function buildCopyText(title, lines, res = {}) {
   return out.join('\n');
 }
 
+/** Simple reference table: headers + rows of plain values. */
+export function refTable(headers, rows) {
+  return h(
+    'table',
+    { class: 'ref-table' },
+    h('tr', {}, headers.map((th) => h('th', {}, th))),
+    rows.map((r) => h('tr', {}, r.map((c) => h('td', {}, c === null || c === undefined ? '—' : String(c)))))
+  );
+}
+
+/** Collapsible section wrapper for reference content. */
+export function foldout(label, ...content) {
+  return h('details', { class: 'steps' }, h('summary', {}, label), h('div', { class: 'fold-body' }, ...content));
+}
+
 export function renderError(container, message) {
   container.replaceChildren(h('p', { class: 'error' }, `⚠ ${message}`));
 }

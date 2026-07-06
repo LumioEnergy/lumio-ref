@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { powerToAmps, ampsToPower, motorFlcLookup, validVoltages } from '../js/calc/current.js';
+import { powerToAmps, ampsToPower, motorFlcLookup, nearestMotorFromAmps, validVoltages } from '../js/calc/current.js';
 import { flcData } from './data.js';
 
 test('10 hp, 600 V, 3-phase uses Table 44 575 V column: 11 A', () => {
@@ -45,6 +45,29 @@ test('reverse: 100 A, 600 V, 3-phase → kW/kVA/HP', () => {
   assert.ok(Math.abs(r.kw - kw) < 0.01);
   assert.ok(Math.abs(r.kva - kw / 0.85) < 0.01);
   assert.ok(Math.abs(r.hp - (kw * 0.9) / 0.746) < 0.01);
+});
+
+test('reverse motor lookup: 27 A @ 600 V 3φ → 25 hp (exact FLC)', () => {
+  const r = nearestMotorFromAmps({ amps: 27, voltage: 600, phase: 3, flcData });
+  assert.equal(r.hp, 25);
+  assert.equal(r.flc, 27);
+});
+
+test('reverse motor lookup picks nearest FLC (30 A → 30 hp @ 32 A over 25 hp @ 27 A)', () => {
+  const r = nearestMotorFromAmps({ amps: 30, voltage: 600, phase: 3, flcData });
+  assert.equal(r.hp, 30);
+});
+
+test('reverse motor lookup: 1-phase fractional HP keeps label', () => {
+  const r = nearestMotorFromAmps({ amps: 9.8, voltage: 120, phase: 1, flcData });
+  assert.equal(r.label, '1/2');
+  assert.equal(r.flc, 9.8);
+});
+
+test('reverse motor lookup: out-of-range and unmapped voltages return null', () => {
+  assert.equal(nearestMotorFromAmps({ amps: 2000, voltage: 600, phase: 3, flcData }), null);
+  assert.equal(nearestMotorFromAmps({ amps: 0.3, voltage: 600, phase: 3, flcData }), null);
+  assert.equal(nearestMotorFromAmps({ amps: 10, voltage: 347, phase: 1, flcData }), null);
 });
 
 test('voltage lists by phase', () => {

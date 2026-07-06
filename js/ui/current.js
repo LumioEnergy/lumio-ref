@@ -1,4 +1,4 @@
-import { powerToAmps, ampsToPower, validVoltages } from '../calc/current.js';
+import { powerToAmps, ampsToPower, nearestMotorFromAmps, validVoltages } from '../calc/current.js';
 import { h, card, field, numInput, select, segmented, fmt, renderResult, renderError, readNum } from './common.js';
 
 export const id = 'current';
@@ -88,17 +88,26 @@ export function render(main, ctx) {
       } else {
         const a = readNum(amps, 'current');
         const r = ampsToPower({ amps: a, ...common });
+        const motor = nearestMotorFromAmps({ amps: a, voltage, phase, flcData: ctx.data.flcData });
+        if (motor) {
+          r.steps.push(`Closest ${motor.ref} motor: ${motor.label} hp (table FLC ${motor.flc} A)`);
+        }
         renderResult(result, {
-          headline: fmt(r.kw),
-          unit: 'kW',
+          headline: `${fmt(r.kw)} kW · ${fmt(r.hp)} hp`,
+          badge: motor ? { text: `≈ ${motor.label} hp motor`, kind: 'ok' } : null,
           rows: [
+            ['kW', `${fmt(r.kw)} kW`],
             ['kVA', `${fmt(r.kva)} kVA`],
-            ['≈ Motor HP', `${fmt(r.hp)} hp`],
+            ['≈ HP (from PF/eff)', `${fmt(r.hp)} hp`],
+            ...(motor ? [[`Closest table motor (${motor.ref})`, `${motor.label} hp — FLC ${motor.flc} A`]] : []),
           ],
           res: r,
           copy: {
             title: 'Current Calculator (reverse)',
-            lines: [`${a} A, ${voltage} V, ${phase}-phase → ${fmt(r.kw)} kW / ${fmt(r.kva)} kVA / ≈${fmt(r.hp)} hp`],
+            lines: [
+              `${a} A, ${voltage} V, ${phase}-phase → ${fmt(r.kw)} kW / ${fmt(r.kva)} kVA / ≈${fmt(r.hp)} hp`,
+              ...(motor ? [`Closest table motor: ${motor.label} hp (FLC ${motor.flc} A, ${motor.ref})`] : []),
+            ],
           },
         });
       }

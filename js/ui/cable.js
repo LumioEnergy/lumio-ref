@@ -1,5 +1,6 @@
 import { selectConductor } from '../calc/cable.js';
-import { h, card, field, numInput, select, segmented, fmt, renderResult, renderError, readNum } from './common.js';
+import { h, card, field, numInput, select, segmented, fmt, renderResult, renderError, readNum, foldout } from './common.js';
+import { ampacityTable, ambientTable, countTable } from './tables.js';
 
 export const id = 'cable';
 export const title = 'Cable';
@@ -85,6 +86,16 @@ export function render(main, ctx) {
     result
   );
   el.addEventListener('input', recalc);
-  main.append(el);
+
+  const tablesCard = card(
+    'Code tables — reference',
+    'The exact values this calculator uses. Full set under the Tables module.',
+    foldout(ampacityData.copper.ref, ampacityTable(ampacityData.copper)),
+    foldout(ampacityData.aluminum.ref, ampacityTable(ampacityData.aluminum)),
+    foldout(`${deratingData.ambient.ref} — ambient correction`, ambientTable(deratingData.ambient)),
+    foldout(`${deratingData.conductorCount.ref} — conductor count`, countTable(deratingData.conductorCount))
+  );
+
+  main.append(el, tablesCard);
   recalc();
 }

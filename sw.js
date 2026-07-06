@@ -1,6 +1,6 @@
 // Offline-first service worker: precache the entire app, serve from cache,
 // update cache in the background. Bump VERSION when shipping changes.
-const VERSION = 'lumioref-v2';
+const VERSION = 'lumioref-v3';
 
 const ASSETS = [
   './',
@@ -17,6 +17,7 @@ const ASSETS = [
   './js/ui/fuse.js',
   './js/ui/disconnect.js',
   './js/ui/selectivity.js',
+  './js/ui/tables.js',
   './js/ui/settings.js',
   './js/calc/power.js',
   './js/calc/current.js',
