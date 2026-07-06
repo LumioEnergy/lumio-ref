@@ -18,6 +18,11 @@ export function render(main, ctx) {
     value: s.material,
     onChange: (v) => ctx.saveSettings({ material: v }),
   });
+  const carrySeg = segmented({
+    options: [ { value: 'on', label: 'On' }, { value: 'off', label: 'Off' } ],
+    value: s.carry ? 'on' : 'off',
+    onChange: (v) => ctx.saveSettings({ carry: v === 'on' }),
+  });
   const theme = segmented({
     options: [ { value: 'auto', label: 'Auto' }, { value: 'light', label: 'Light' }, { value: 'dark', label: 'Dark' } ],
     value: s.theme,
@@ -52,6 +57,7 @@ export function render(main, ctx) {
       field('VD limit — total (%)', vdTotal),
       field('Default power factor', pf),
       field('Default efficiency', eff),
+      field('Send values between modules', carrySeg),
       field('Code dataset', dataset)
     )
   );

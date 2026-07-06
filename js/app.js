@@ -16,7 +16,7 @@ const MODULES = [power, current, cable, vdrop, fuse, disconnect, selectivity, ta
 
 // ---- Settings (persisted locally) ----
 const SETTINGS_KEY = 'lumioref-settings';
-const DEFAULTS = { voltage: 600, phase: 3, material: 'copper', vdBranch: 3, vdTotal: 5, pf: 0.85, eff: 0.9, theme: 'auto', dataset: 'cec-2024' };
+const DEFAULTS = { voltage: 600, phase: 3, material: 'copper', vdBranch: 3, vdTotal: 5, pf: 0.85, eff: 0.9, theme: 'auto', dataset: 'cec-2024', carry: true };
 
 function loadSettings() {
   try {
@@ -76,9 +76,21 @@ function route() {
 // ---- Boot ----
 (async () => {
   buildNav();
+  // Cross-module carry: a calculated value one module "sends" so others
+  // prefill from it. Session-scoped; inputs stay fully editable.
+  const CARRY_KEY = 'lumioref-carry';
+  const getCarry = () => {
+    try {
+      return JSON.parse(sessionStorage.getItem(CARRY_KEY));
+    } catch {
+      return null;
+    }
+  };
+  const setCarry = (p) => (p ? sessionStorage.setItem(CARRY_KEY, JSON.stringify(p)) : sessionStorage.removeItem(CARRY_KEY));
+
   try {
     const data = await loadDataset(settings.dataset);
-    ctx = { data, settings, saveSettings };
+    ctx = { data, settings, saveSettings, getCarry, setCarry };
   } catch (err) {
     renderError(main, `Could not load data tables: ${err.message}. If you are opening index.html directly from disk, serve it over HTTP instead (see README).`);
     return;

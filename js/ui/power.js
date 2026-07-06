@@ -32,6 +32,7 @@ export function render(main, ctx) {
       const results = Object.fromEntries(targets.map((t) => [t, convertPower({ ...args, from, to: t })]));
       const primary = results[targets[0]];
       const unitLabel = { hp: 'hp', kw: 'kW', kva: 'kVA' };
+      const hpOut = from === 'hp' ? v : results.hp.value;
       renderResult(result, {
         headline: fmt(primary.value),
         unit: primary.unit,
@@ -43,6 +44,11 @@ export function render(main, ctx) {
             `Input: ${v} ${unitLabel[from]} (PF ${args.pf}, eff ${args.eff})`,
             ...targets.map((t) => `= ${fmt(results[t].value)} ${results[t].unit}`),
           ],
+        },
+        send: {
+          ctx,
+          payload: { kw: +primary.kw.toFixed(3), hp: +hpOut.toFixed(2), pf: args.pf, eff: args.eff, source: 'Power' },
+          targets: [{ id: 'current', label: 'Current' }],
         },
       });
     } catch (err) {

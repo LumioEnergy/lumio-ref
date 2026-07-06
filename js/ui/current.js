@@ -1,18 +1,28 @@
 import { powerToAmps, ampsToPower, nearestMotorFromAmps, validVoltages } from '../calc/current.js';
-import { h, card, field, numInput, select, segmented, fmt, renderResult, renderError, readNum } from './common.js';
+import { h, card, field, numInput, select, segmented, fmt, renderResult, renderError, readNum, carryNotice } from './common.js';
 
 export const id = 'current';
 export const title = 'Current';
 
+const SEND_TARGETS = [
+  { id: 'cable', label: 'Cable' },
+  { id: 'vdrop', label: 'Voltage Drop' },
+  { id: 'fuse', label: 'Fuses' },
+  { id: 'disconnect', label: 'Disconnect' },
+];
+
 export function render(main, ctx) {
+  const carried = ctx.settings.carry ? ctx.getCarry() : null;
+  const fromPower = carried && carried.source === 'Power' && typeof carried.kw === 'number' ? carried : null;
+
   let mode = 'toAmps';
-  let kind = 'hp';
+  let kind = fromPower ? 'kw' : 'hp';
   let phase = ctx.settings.phase;
 
-  const value = numInput({ id: 'cu-value', value: 10 });
+  const value = numInput({ id: 'cu-value', value: fromPower ? +fromPower.kw.toFixed(2) : 10 });
   const amps = numInput({ id: 'cu-amps', value: 30 });
-  const pf = numInput({ id: 'cu-pf', value: ctx.settings.pf, step: '0.01' });
-  const eff = numInput({ id: 'cu-eff', value: ctx.settings.eff, step: '0.01' });
+  const pf = numInput({ id: 'cu-pf', value: fromPower?.pf ?? ctx.settings.pf, step: '0.01' });
+  const eff = numInput({ id: 'cu-eff', value: fromPower?.eff ?? ctx.settings.eff, step: '0.01' });
   const result = h('div', { class: 'result' });
 
   const voltageSel = select({ id: 'cu-voltage', options: validVoltages(phase), value: ctx.settings.voltage });
@@ -84,6 +94,18 @@ export function render(main, ctx) {
             title: 'Current Calculator',
             lines: [`${v} ${kind === 'hp' ? 'hp' : 'kW'}, ${voltage} V, ${phase}-phase → ${fmt(r.governing, 1)} A`],
           },
+          send: {
+            ctx,
+            payload: {
+              amps: +r.governing.toFixed(1),
+              voltage,
+              phase,
+              isMotor: kind === 'hp',
+              hp: kind === 'hp' ? v : null,
+              source: 'Current',
+            },
+            targets: SEND_TARGETS,
+          },
         });
       } else {
         const a = readNum(amps, 'current');
@@ -109,6 +131,11 @@ export function render(main, ctx) {
               ...(motor ? [`Closest table motor: ${motor.label} hp (FLC ${motor.flc} A, ${motor.ref})`] : []),
             ],
           },
+          send: {
+            ctx,
+            payload: { amps: a, voltage, phase, isMotor: !!motor, hp: motor ? motor.hp : null, source: 'Current' },
+            targets: SEND_TARGETS,
+          },
         });
       }
     } catch (err) {
@@ -116,7 +143,13 @@ export function render(main, ctx) {
     }
   }
 
-  const el = card('Current Calculator', 'Motor HP uses CEC Table 44/45 full-load current where tabulated.', grid, result);
+  const el = card(
+    'Current Calculator',
+    'Motor HP uses CEC Table 44/45 full-load current where tabulated.',
+    fromPower ? carryNotice(ctx, `Prefilled from Power: ${+fromPower.kw.toFixed(2)} kW`) : null,
+    grid,
+    result
+  );
   el.addEventListener('input', recalc);
   main.append(el);
   rebuild();

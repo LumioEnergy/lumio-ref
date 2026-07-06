@@ -1,15 +1,17 @@
 import { motorFuse, transformerFuse } from '../calc/fuse.js';
-import { h, card, field, numInput, segmented, fmt, renderResult, renderError, readNum } from './common.js';
+import { h, card, field, numInput, segmented, fmt, renderResult, renderError, readNum, carryNotice } from './common.js';
 
 export const id = 'fuse';
 export const title = 'Fuses';
 
 export function render(main, ctx) {
   const { fuseData } = ctx.data;
+  const carried = ctx.settings.carry ? ctx.getCarry() : null;
+  const hasCarry = carried && typeof carried.amps === 'number';
   let tab = 'motor';
   let fuseType = 'timeDelay';
 
-  const fla = numInput({ id: 'fu-fla', value: 28 });
+  const fla = numInput({ id: 'fu-fla', value: hasCarry ? carried.amps : 28 });
   const priA = numInput({ id: 'fu-pri', value: 43.3 });
   const secA = numInput({ id: 'fu-sec', value: 125 });
   const secChk = h('input', { id: 'fu-secchk', type: 'checkbox' });
@@ -109,7 +111,13 @@ export function render(main, ctx) {
     }
   }
 
-  const el = card('Fuse Selection', 'CEC 28-200 motor branch and 26-250/254 transformer sizing; Class J/CC/RK1/RK5/T/L guide.', field('Section', tabSeg), body);
+  const el = card(
+    'Fuse Selection',
+    'CEC 28-200 motor branch and 26-250/254 transformer sizing; Class J/CC/RK1/RK5/T/L guide.',
+    hasCarry ? carryNotice(ctx, `Prefilled from ${carried.source}: FLC ${carried.amps} A`) : null,
+    field('Section', tabSeg),
+    body
+  );
   el.addEventListener('input', recalc);
   main.append(el);
   rebuild();

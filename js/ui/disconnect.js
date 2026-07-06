@@ -1,5 +1,5 @@
 import { selectDisconnect } from '../calc/disconnect.js';
-import { h, card, field, numInput, select, segmented, fmt, renderResult, renderError, readNum } from './common.js';
+import { h, card, field, numInput, select, segmented, fmt, renderResult, renderError, readNum, carryNotice } from './common.js';
 
 export const id = 'disconnect';
 export const title = 'Disconnect';
@@ -8,11 +8,17 @@ const VOLTAGES = [120, 208, 240, 347, 480, 575, 600];
 
 export function render(main, ctx) {
   const { disconnectData } = ctx.data;
-  let kind = 'motor';
+  const carried = ctx.settings.carry ? ctx.getCarry() : null;
+  const hasCarry = carried && typeof carried.amps === 'number';
+  let kind = hasCarry ? (carried.isMotor ? 'motor' : 'general') : 'motor';
 
-  const amps = numInput({ id: 'dc-amps', value: 28 });
-  const hp = numInput({ id: 'dc-hp', value: 10 });
-  const voltageSel = select({ id: 'dc-voltage', options: VOLTAGES.map((v) => ({ value: v, label: `${v} V` })), value: ctx.settings.voltage });
+  const amps = numInput({ id: 'dc-amps', value: hasCarry ? carried.amps : 28 });
+  const hp = numInput({ id: 'dc-hp', value: hasCarry && carried.hp ? carried.hp : 10 });
+  const voltageSel = select({
+    id: 'dc-voltage',
+    options: VOLTAGES.map((v) => ({ value: v, label: `${v} V` })),
+    value: hasCarry && VOLTAGES.includes(carried.voltage) ? carried.voltage : ctx.settings.voltage,
+  });
   const result = h('div', { class: 'result' });
   const grid = h('div', { class: 'grid' });
 
@@ -61,7 +67,13 @@ export function render(main, ctx) {
     }
   }
 
-  const el = card('Disconnect Selection', 'Motor disconnects: ≥115% of FLC and horsepower-rated (CEC 28-604).', grid, result);
+  const el = card(
+    'Disconnect Selection',
+    'Motor disconnects: ≥115% of FLC and horsepower-rated (CEC 28-604).',
+    hasCarry ? carryNotice(ctx, `Prefilled from ${carried.source}: ${carried.amps} A${carried.hp ? `, ${carried.hp} hp` : ''}`) : null,
+    grid,
+    result
+  );
   el.addEventListener('input', recalc);
   main.append(el);
   rebuild();

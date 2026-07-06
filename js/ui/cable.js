@@ -1,5 +1,5 @@
 import { selectConductor } from '../calc/cable.js';
-import { h, card, field, numInput, select, segmented, fmt, renderResult, renderError, readNum, foldout } from './common.js';
+import { h, card, field, numInput, select, segmented, fmt, renderResult, renderError, readNum, foldout, carryNotice } from './common.js';
 import { ampacityTable, ambientTable, countTable } from './tables.js';
 
 export const id = 'cable';
@@ -8,9 +8,12 @@ export const title = 'Cable';
 export function render(main, ctx) {
   const { ampacityData, deratingData } = ctx.data;
   let material = ctx.settings.material;
+  const carried = ctx.settings.carry ? ctx.getCarry() : null;
+  const hasCarry = carried && typeof carried.amps === 'number';
 
-  const amps = numInput({ id: 'cb-amps', value: 28 });
+  const amps = numInput({ id: 'cb-amps', value: hasCarry ? carried.amps : 28 });
   const motorChk = h('input', { id: 'cb-motor', type: 'checkbox' });
+  motorChk.checked = !!(hasCarry && carried.isMotor);
   const insulation = select({
     id: 'cb-ins',
     options: ampacityData.insulationTypes.map((t) => ({ value: t.tempC, label: `${t.type} — ${t.tempC} °C` })),
@@ -74,6 +77,7 @@ export function render(main, ctx) {
   const el = card(
     'Cable / Conductor Selection',
     'CEC Tables 2/4 with Table 5A/5C derating and Rule 4-006 termination limits.',
+    hasCarry ? carryNotice(ctx, `Prefilled from ${carried.source}: ${carried.amps} A${carried.isMotor ? ' motor FLC' : ''}`) : null,
     h('div', { class: 'grid' },
       field('Load current (A)', amps),
       field('Material', matSeg),

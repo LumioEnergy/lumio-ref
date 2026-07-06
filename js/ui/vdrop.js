@@ -1,5 +1,5 @@
 import { voltageDrop, minSizeForDrop } from '../calc/vdrop.js';
-import { h, card, field, numInput, select, segmented, fmt, renderResult, renderError, readNum } from './common.js';
+import { h, card, field, numInput, select, segmented, fmt, renderResult, renderError, readNum, carryNotice } from './common.js';
 
 export const id = 'vdrop';
 export const title = 'Voltage Drop';
@@ -8,15 +8,21 @@ const VOLTAGES = [120, 208, 240, 347, 480, 575, 600];
 
 export function render(main, ctx) {
   const { impedanceData } = ctx.data;
+  const carried = ctx.settings.carry ? ctx.getCarry() : null;
+  const hasCarry = carried && typeof carried.amps === 'number';
   let mode = 'check';
   let material = ctx.settings.material;
-  let phase = ctx.settings.phase;
+  let phase = hasCarry && carried.phase ? carried.phase : ctx.settings.phase;
 
-  const amps = numInput({ id: 'vd-amps', value: 100 });
+  const amps = numInput({ id: 'vd-amps', value: hasCarry ? carried.amps : 100 });
   const lengthM = numInput({ id: 'vd-len', value: 75 });
   const pf = numInput({ id: 'vd-pf', value: 0.9, step: '0.01' });
   const limit = numInput({ id: 'vd-limit', value: ctx.settings.vdBranch, step: '0.1' });
-  const voltageSel = select({ id: 'vd-voltage', options: VOLTAGES.map((v) => ({ value: v, label: `${v} V` })), value: ctx.settings.voltage });
+  const voltageSel = select({
+    id: 'vd-voltage',
+    options: VOLTAGES.map((v) => ({ value: v, label: `${v} V` })),
+    value: hasCarry && VOLTAGES.includes(carried.voltage) ? carried.voltage : ctx.settings.voltage,
+  });
   const sizeSel = select({ id: 'vd-size', options: impedanceData.sizes.map((s) => s.size), value: '3 AWG' });
   const result = h('div', { class: 'result' });
 
@@ -120,6 +126,7 @@ export function render(main, ctx) {
   const el = card(
     'Voltage Drop',
     'R·cosφ + X·sinφ method with CEC Table D3-style impedance (Ω/km). Ampacity is checked separately in the Cable module.',
+    hasCarry ? carryNotice(ctx, `Prefilled from ${carried.source}: ${carried.amps} A, ${carried.voltage} V, ${carried.phase}φ`) : null,
     grid,
     result
   );

@@ -167,6 +167,22 @@ details.steps li { margin-bottom: 4px; }
 .btn.primary { background: var(--primary); color: var(--primary-ink); border-color: var(--primary); font-weight: 700; }
 .btn:active { transform: scale(0.98); }
 
+/* Cross-module carry */
+.send-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+.send-row > span { color: var(--muted); font-family: var(--font-head); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.09em; }
+.send-row .send-btn { margin-top: 0; padding: 8px 14px; min-height: 40px; font-size: 0.88rem; }
+.carry-note {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: color-mix(in srgb, var(--amber) 12%, transparent);
+  border-left: 3px solid var(--amber); border-radius: 8px;
+  padding: 10px 12px; margin: 0 0 12px; font-size: 0.85rem;
+}
+.carry-clear {
+  border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  border-radius: 8px; padding: 6px 12px; min-height: 36px; cursor: pointer;
+  font-family: var(--font-head); font-size: 0.82rem; flex: 0 0 auto;
+}
+
 /* Reference tables (fuse classes etc.) */
 table.ref-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; margin-top: 8px; }
 table.ref-table th, table.ref-table td { text-align: left; padding: 8px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }

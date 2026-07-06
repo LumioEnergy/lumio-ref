@@ -1,6 +1,6 @@
 // Offline-first service worker: precache the entire app, serve from cache,
 // update cache in the background. Bump VERSION when shipping changes.
-const VERSION = 'lumioref-v3';
+const VERSION = 'lumioref-v4';
 
 const ASSETS = [
   './',

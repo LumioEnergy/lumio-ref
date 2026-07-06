@@ -73,9 +73,10 @@ async function copyText(text, btn) {
 
 /**
  * Render a result block into `container` (cleared first).
- * { headline, unit, badge: {text, kind}, rows: [[label, value]], res: {ref, steps, warnings}, copy: {title, lines} }
+ * { headline, unit, badge: {text, kind}, rows: [[label, value]], res: {ref, steps, warnings}, copy: {title, lines},
+ *   send: { ctx, payload, targets: [{id,label}] } — "Send to" buttons (hidden when the carry setting is off) }
  */
-export function renderResult(container, { headline, unit = '', badge = null, rows = [], res = {}, copy = null }) {
+export function renderResult(container, { headline, unit = '', badge = null, rows = [], res = {}, copy = null, send = null }) {
   container.replaceChildren();
   const big = h('div', { class: 'big' }, headline, unit ? h('small', {}, ` ${unit}`) : null);
   if (badge) big.append(h('span', { class: `badge ${badge.kind}` }, badge.text));
@@ -94,6 +95,34 @@ export function renderResult(container, { headline, unit = '', badge = null, row
     const text = buildCopyText(copy.title, copy.lines, res);
     container.append(h('button', { class: 'btn', type: 'button', onclick: (e) => copyText(text, e.currentTarget) }, '⧉ Copy result'));
   }
+  if (send && send.ctx.settings.carry && send.payload) {
+    container.append(
+      h('div', { class: 'send-row' },
+        h('span', {}, 'Send to:'),
+        send.targets.map((t) =>
+          h('button', {
+            class: 'btn send-btn', type: 'button',
+            onclick: () => {
+              send.ctx.setCarry({ ...send.payload });
+              location.hash = `#/${t.id}`;
+            },
+          }, `${t.label} →`)
+        )
+      )
+    );
+  }
+}
+
+/** Banner shown by a module that prefilled its inputs from a carried value. */
+export function carryNotice(ctx, text) {
+  const note = h('div', { class: 'carry-note' },
+    h('span', {}, `⇄ ${text} — inputs remain editable`),
+    h('button', {
+      class: 'carry-clear', type: 'button',
+      onclick: () => { ctx.setCarry(null); note.remove(); },
+    }, 'Clear')
+  );
+  return note;
 }
 
 export function buildCopyText(title, lines, res = {}) {
