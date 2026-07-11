@@ -1,4 +1,4 @@
-# Lumio REF — Electrical Quick-Reference PWA
+# Lumio Ref — Electrical Quick-Reference PWA
 
 Fast day-to-day CEC/OESC 2024 lookups for Lumio Energy: power conversion, motor currents,
 conductor sizing, voltage drop, fuse and disconnect selection, and fuse selectivity.
@@ -57,7 +57,7 @@ GitHub Pages provides the HTTPS origin required for PWA installation.
 1. Create a repository and push (from the `lumio-ref` folder):
    ```
    git init            # already done if you received this repo initialized
-   git add -A && git commit -m "Lumio REF v1"
+   git add -A && git commit -m "Lumio Ref v1"
    gh repo create lumio-ref --public --source . --push
    # or create the repo on github.com and: git remote add origin <url> && git push -u origin main
    ```
@@ -78,7 +78,7 @@ by design of the cache-first worker).
 ## Install on Windows desktop
 
 1. Open the GitHub Pages URL in **Chrome** or **Edge**.
-2. Click the **install icon** in the address bar (or menu → *Apps → Install Lumio REF* /
+2. Click the **install icon** in the address bar (or menu → *Apps → Install Lumio Ref* /
    *Install this site as an app* in Edge).
 3. It opens in its own window with a taskbar icon and works offline.
 
