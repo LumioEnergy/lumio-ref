@@ -1,7 +1,8 @@
 # Lumio Ref — Electrical Quick-Reference PWA
 
 Fast day-to-day CEC/OESC 2024 lookups for Lumio Energy: power conversion, motor currents,
-conductor sizing, voltage drop, fuse and disconnect selection, and fuse selectivity.
+conductor sizing, voltage drop, fuse and disconnect selection, fuse selectivity, code tables,
+and unit conversions (length, temperature).
 One codebase, installs on iPhone and Windows desktop, works 100% offline.
 
 > **Reference only.** All results are quick-reference estimates. Final design values must be

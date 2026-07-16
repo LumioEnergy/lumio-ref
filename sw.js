@@ -1,6 +1,6 @@
 // Offline-first service worker: precache the entire app, serve from cache,
 // update cache in the background. Bump VERSION when shipping changes.
-const VERSION = 'lumioref-v4';
+const VERSION = 'lumioref-v5';
 
 const ASSETS = [
   './',
@@ -17,6 +17,7 @@ const ASSETS = [
   './js/ui/fuse.js',
   './js/ui/disconnect.js',
   './js/ui/selectivity.js',
+  './js/ui/convert.js',
   './js/ui/tables.js',
   './js/ui/settings.js',
   './js/calc/power.js',
@@ -26,6 +27,7 @@ const ASSETS = [
   './js/calc/fuse.js',
   './js/calc/disconnect.js',
   './js/calc/selectivity.js',
+  './js/calc/convert.js',
   './data/cec-2024/meta.json',
   './data/cec-2024/motor-flc.json',
   './data/cec-2024/ampacity.json',
